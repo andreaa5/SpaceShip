@@ -80,4 +80,4 @@ python3 starship_interface.py
 
 ### API
 
-Don't forget to get your api key and include it in the code (mentioned in the code as well)
+Don't forget to get your api key and include it in .env as NASA_API_KEY = '*your_api_key' (replace your_api_key with your actual api key string)
