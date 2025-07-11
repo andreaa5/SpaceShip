@@ -9,8 +9,8 @@ range of days for example.
 ## Features
 
 - Enter start day and end day for near earth objects
-  *The answer contains the name of the object, if it is hazardous and when it was last seen
-  *Or if no objects found it communicates that
+  * The answer contains the name of the object, if it is hazardous and when it was last seen
+  * Or if no objects found it communicates that
 - Enter start day and end day for the space weather. Here there are multiple options:
   1. Coronal Mass Ejection (CME)
   2. Geometric Storm (GST)
@@ -21,7 +21,7 @@ range of days for example.
   7. Radiation Belt Enhancement (RBE)
   8. Hight Speed Stream (HSS)
 
-  *The answer contains the start time of the specified event and notes as additional information for it
+  * The answer contains the start time of the specified event and notes as additional information for it
 
 ---
 
@@ -58,7 +58,7 @@ cd SpaceShip
   ```bash
   python3 -m venv venv
   source venv/bin/activate
-```
+
 
 * On Windows:
   ```bash
