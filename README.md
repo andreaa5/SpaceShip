@@ -86,3 +86,9 @@ python3 starship_interface.py
 ### API
 
 Don't forget to get your api key and include it in .env as NASA_API_KEY = '*your_api_key' (replace your_api_key with your actual api key string)
+
+## TODO
+
+- [ ] Enable scrolling in reply windows on longer replies
+- [ ] Add reply for communicating on no found results in weather api
+- [ ] Adapt structure a bit - bring the api functions to one general function with arguments
