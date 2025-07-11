@@ -28,7 +28,7 @@ range of days for example.
 ## Technologies Used
 
 - NASA API
-- Python (tkinter)
+- Python
 
 ---
 
@@ -54,22 +54,27 @@ cd SpaceShip
 
 1. **Create and activate a virtual environment**
 
-- On Linux/mac0S:
+* On Linux/mac0S:
   ```bash
   python3 -m venv venv
   source venv/bin/activate
 ```
 
-- On Windows:
-```bash
-python -m venv venv
-.\venv\Scripts\Activate.ps1
+* On Windows:
+  ```bash
+  python -m venv venv
+  .\venv\Scripts\Activate.ps1
 ```
 
 2. **Install required packages - you can simply use the requirements.txt as well**
 
 ```bash
 pip install -r requirements.txt
+```
+
+In case you need to install tkinter:
+```bash
+sudo apt-get install python3-tk
 ```
 
 3. **Running the project**
