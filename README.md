@@ -64,7 +64,7 @@ cd SpaceShip
   ```bash
   python -m venv venv
   .\venv\Scripts\Activate.ps1
-```
+
 
 2. **Install required packages - you can simply use the requirements.txt as well**
 
