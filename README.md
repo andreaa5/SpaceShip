@@ -50,4 +50,34 @@ range of days for example.
 https://github.com/andreaa5/SpaceShip
 cd SpaceShip
 ``` 
+###  Setup
 
+1. **Create and activate a virtual environment**
+
+- On Linux/mac0S:
+  ```bash
+  python3 -m venv venv
+  source venv/bin/activate
+```
+
+- On Windows:
+```bash
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+```
+
+2. **Install required packages - you can simply use the requirements.txt as well**
+
+```bash
+pip install -r requirements.txt
+```
+
+3. **Running the project**
+
+```bash
+python3 starship_interface.py
+```
+
+### API
+
+Don't forget to get your api key and include it in the code (mentioned in the code as well)
