@@ -12,7 +12,8 @@ from api import (
     fetch_sep_data,
     fetch_mpc_data,
     fetch_rbe_data,
-    fetch_hss_data
+    fetch_hss_data,
+    fetch_search_data
 )
 
 #add your api key to the .env file - can be found on https://api.nasa.gov/
@@ -40,7 +41,7 @@ class SpaceShipCommanderApp():
     def __init__(self):
         self.win = Tk()
         self.win.title("Welcome commander")
-        self.win.geometry("1920x1080")
+        #self.win.geometry("1920x1080")
         self.win.resizable(width=False, height=False)
 
         self.search_term = tk.StringVar()
@@ -180,12 +181,15 @@ class SpaceShipCommanderApp():
         main_frame.rowconfigure(6, weight=1)
 
         newWindow.title("Asteroid data")
-        newWindow.geometry("2500x1000")
+        #newWindow.geometry("2500x1000")
 
         ttk.Label(main_frame, text='Enter the start and end date in the format like year-month-day',
                   background=dark_mode, foreground='#3b73cc', font=("Courier", 15)).grid(column=1, row=0)
         ttk.Label(main_frame, text='Greetings! Give me information on near earth objects that we observed in the period between',
-                  background=dark_mode, foreground='#3b73cc', font=("Courier", 15)).grid(column=1, row=1)
+                  background=dark_mode, foreground='#3b73cc', font=("Courier", 15)).grid(column=1, row=1, pady=20, padx=20)
+        
+        main_frame.rowconfigure(2, minsize=30)  
+        main_frame.rowconfigure(2, minsize=30)  # Spacer row
 
         tk.Entry(main_frame, textvariable=self.start_date, font=('calibre', 10, 'normal'),
                  background=black, foreground='#3a36ad', border=0).grid(column=1, row=2)
@@ -194,7 +198,7 @@ class SpaceShipCommanderApp():
         ttk.Label(main_frame, text='and', background=dark_mode, foreground='#3b73cc', font=("Courier", 15)).grid(column=1, row=3)
 
         tk.Entry(main_frame, textvariable=self.end_date, font=('calibre', 10, 'normal'),
-                 background=black, foreground='#3a36ad', border=0).grid(column=1, row=4)
+                 background=black, foreground='#3a36ad', border=0).grid(column=1, row=4, pady=20)
         self.end_date.set("Enter the end date")
 
         reply_button = tk.Button(main_frame, text='Show reply', command=self.getResultsAnswer,
@@ -212,7 +216,7 @@ class SpaceShipCommanderApp():
     def weatherWindow(self):
         weatherWindow = Toplevel(self.win)
         weatherWindow.title("Space weather")
-        weatherWindow.geometry("2000x1000")
+        #weatherWindow.geometry("2000x1000")
         weatherWindow.configure(bg=dark_mode)
         main_frame = tk.Frame(weatherWindow, bg=dark_mode, pady=40)
         main_frame.pack(fill=tk.BOTH, expand=True)
@@ -226,25 +230,109 @@ class SpaceShipCommanderApp():
         main_frame.rowconfigure(4, weight=1)
 
         tk.Entry(main_frame, textvariable=self.weather_start_date, font=('calibre', 10, 'normal'),
-                 background=black, foreground='#3a36ad', border=0).grid(column=0, row=0)
+                 background=black, foreground='#3a36ad', border=0).grid(column=0, row=0, padx=20, pady=20)
         self.weather_start_date.set("Enter the start date")
 
         tk.Entry(main_frame, textvariable=self.weather_end_date, font=('calibre', 10, 'normal'),
-                 background=black, foreground='#3a36ad', border=0).grid(column=2, row=0)
+                 background=black, foreground='#3a36ad', border=0).grid(column=2, row=0, padx=20, pady=20)
         self.weather_end_date.set("Enter the end date")
 
-        # Example for CME button, repeat for other types
         tk.Button(main_frame, text='CME',
                   command=lambda: self.start_donki_api(self.weather_start_date.get(), self.weather_end_date.get(), 'cme'),
                   background=black, foreground='#3a36ad', activebackground=gray_color,
                   highlightthickness=2, highlightbackground=black_second, highlightcolor='WHITE',
                   width=13, height=4, border=0).grid(column=0, row=1)
-        # ... repeat for GST, FLR, SEP, MPC, RBE, HSS ...
+        
+        tk.Button(main_frame,text = 'GST', 
+                      command=lambda: self.start_donki_api(start_date=self.weather_start_date.get(), end_date=self.weather_end_date.get(), type='gst'),
+                      background=black, 
+                      foreground='#3a36ad', 
+                      activebackground=gray_color,
+                      highlightthickness=2,
+                      highlightbackground=black_second,
+                      highlightcolor='WHITE',
+                      width=13,
+                      height=4,
+                      border=0).grid(column=1,row=1)
+            
+        tk.Button(main_frame,text = 'FLR', 
+                    command=lambda: self.start_donki_api(start_date=self.weather_start_date.get(), end_date=self.weather_end_date.get(), type='flr'),
+                    background=black, 
+                    foreground='#3a36ad', 
+                    activebackground=gray_color,
+                    highlightthickness=2,
+                    highlightbackground=black_second,
+                    highlightcolor='WHITE',
+                    width=13,
+                    height=4,
+                    border=0).grid(column=2,row=1)
+        
+        tk.Button(main_frame,text = 'SEP', 
+                    command=lambda: self.start_donki_api(start_date=self.weather_start_date.get(), end_date=self.weather_end_date.get(), type='sep'),
+                    background=black, 
+                    foreground='#3a36ad', 
+                    activebackground=gray_color,
+                    highlightthickness=2,
+                    highlightbackground=black_second,
+                    highlightcolor='WHITE',
+                    width=13,
+                    height=4,
+                    border=0).grid(column=0,row=2)
+        
+        tk.Button(main_frame,text = 'MPC', 
+                    command=lambda: self.start_donki_api(start_date=self.weather_start_date.get(), end_date=self.weather_end_date.get(), type='mpc'),
+                    background=black, 
+                    foreground='#3a36ad', 
+                    activebackground=gray_color,
+                    highlightthickness=2,
+                    highlightbackground=black_second,
+                    highlightcolor='WHITE',
+                    width=13,
+                    height=4,
+                    border=0).grid(column=1,row=2)
+        
+        tk.Button(main_frame,text = 'RBE', 
+                    command=lambda: self.start_donki_api(start_date=self.weather_start_date.get(), end_date=self.weather_end_date.get(), type='rbe'),
+                    background=black, 
+                    foreground='#3a36ad', 
+                    activebackground=gray_color,
+                    highlightthickness=2,
+                    highlightbackground=black_second,
+                    highlightcolor='WHITE',
+                    width=13,
+                    height=4,
+                    border=0).grid(column=2,row=2)
+        
+        tk.Button(main_frame,text = 'HSS', 
+                    command=lambda: self.start_donki_api(start_date=self.weather_start_date.get(), end_date=self.weather_end_date.get(), type='hss'),
+                    background=black, 
+                    foreground='#3a36ad', 
+                    activebackground=gray_color,
+                    highlightthickness=2,
+                    highlightbackground=black_second,
+                    highlightcolor='WHITE',
+                    width=13,
+                    height=4,
+                    border=0).grid(column=1,row=3, pady=20)
+        
+        tk.Button(main_frame,text = 'See reply', 
+                    command = self.getWeatherResponse,
+                    background=black_second, 
+                    foreground='#3a36ad', 
+                    activebackground=gray_color,
+                    highlightthickness=2,
+                    highlightbackground=black_second,
+                    highlightcolor='WHITE',
+                    width=13,
+                    height=4,
+                    border=0).grid(column=1,row=4)
 
-        tk.Button(main_frame, text='See reply', command=self.getWeatherResponse,
-                  background=black_second, foreground='#3a36ad', activebackground=gray_color,
-                  highlightthickness=2, highlightbackground=black_second, highlightcolor='WHITE',
-                  width=13, height=4, border=0).grid(column=1, row=4)
+    
+        self.weather_canvas = tk.Canvas(main_frame, height=100, width=250, bg=dark_mode, border=0, highlightthickness=0)
+        self.weather_canvas.grid(column=1, row=0)
+        #self.second_canvas.create_rectangle(10,150,100,100, fill='#40100f')
+        self.rectangle = self.weather_canvas.create_rectangle(10,150,100,100, fill=black)
+        self.weather_canvas.create_rectangle(240,150,150,100, fill='#3a36ad')
 
     def getResultsAnswer(self):
         answerWindow = Toplevel(self.win)
@@ -262,7 +350,7 @@ class SpaceShipCommanderApp():
         self.win.rowconfigure(0, weight=1)
         frame.columnconfigure(0, weight=1)
         frame.rowconfigure(0, weight=1)
-        answerWindow.geometry("1900x1900")
+        #answerWindow.geometry("1900x1900")
         if self.size == 0:
             ttk.Label(answerWindow, text='Greetings commander!', background='black', foreground='#3b73cc', font=("Courier", 15)).pack(expand=True)
             ttk.Label(answerWindow, text='No near earth objects were detected in that period!', background='black', foreground='#3b73cc', font=("Courier", 15)).pack(expand=True)
@@ -299,7 +387,7 @@ class SpaceShipCommanderApp():
         answerWindow.title("Reply on your cme request")
         frame = tk.Frame(answerWindow, bg='black')
         frame.place(relwidth=1, relheight=1)
-        answerWindow.geometry("3000x2000")
+        #answerWindow.geometry("3000x2000")
         ttk.Label(answerWindow, text='Greetings commander!', background='black', foreground='#3b73cc', font=("Courier", 12)).pack(expand=True)
         if len(self.cme_activity_ids) == 0:
             ttk.Label(answerWindow, text='There is no data on coronal mass ejection in that period.', background='black', foreground='#3b73cc', font=("Courier", 12)).pack(expand=True)
@@ -317,7 +405,7 @@ class SpaceShipCommanderApp():
         answerWindow.title("Reply on your gst request")
         frame = tk.Frame(answerWindow, bg='black')
         frame.place(relwidth=1, relheight=1)
-        answerWindow.geometry("3000x2000")
+        #answerWindow.geometry("3000x2000")
         ttk.Label(answerWindow, text='Greetings commander!', background='black', foreground='#3b73cc', font=("Courier", 12)).pack(expand=True)
         ttk.Label(answerWindow, text='Here is the information about geomagnetic storm in that period:', background='black', foreground='#3b73cc', font=("Courier", 12)).pack(expand=True)
         for item in range(len(self.gst_ids)):
@@ -331,7 +419,7 @@ class SpaceShipCommanderApp():
         answerWindow.title("Reply on your flr request")
         frame = tk.Frame(answerWindow, bg='black')
         frame.place(relwidth=1, relheight=1)
-        answerWindow.geometry("3000x2000")
+        #answerWindow.geometry("3000x2000")
         ttk.Label(answerWindow, text='Greetings commander!', background='black', foreground='#3b73cc', font=("Courier", 12)).pack(expand=True)
         ttk.Label(answerWindow, text='Here is the information about solar flare in that period:', background='black', foreground='#3b73cc', font=("Courier", 12)).pack(expand=True)
         for item in range(len(self.flr_ids)):
@@ -349,7 +437,7 @@ class SpaceShipCommanderApp():
         answerWindow.title("Reply on your sep request")
         frame = tk.Frame(answerWindow, bg='black')
         frame.place(relwidth=1, relheight=1)
-        answerWindow.geometry("3000x2000")
+        #answerWindow.geometry("3000x2000")
         ttk.Label(answerWindow, text='Greetings commander!', background='black', foreground='#3b73cc', font=("Courier", 12)).pack(expand=True)
         ttk.Label(answerWindow, text='Here is the information about Solar Energetic Particle in that period:', background='black', foreground='#3b73cc', font=("Courier", 12)).pack(expand=True)
         for item in range(len(self.sep_ids)):
@@ -363,7 +451,7 @@ class SpaceShipCommanderApp():
         answerWindow.title("Reply on your mpc request")
         frame = tk.Frame(answerWindow, bg='black')
         frame.place(relwidth=1, relheight=1)
-        answerWindow.geometry("3000x2000")
+        #answerWindow.geometry("3000x2000")
         ttk.Label(answerWindow, text='Greetings commander!', background='black', foreground='#3b73cc', font=("Courier", 12)).pack(expand=True)
         ttk.Label(answerWindow, text='Here is the information about Magnetopause Crossing in that period:', background='black', foreground='#3b73cc', font=("Courier", 12)).pack(expand=True)
         for item in range(len(self.mpc_ids)):
@@ -377,7 +465,7 @@ class SpaceShipCommanderApp():
         answerWindow.title("Reply on your rbe request")
         frame = tk.Frame(answerWindow, bg='black')
         frame.place(relwidth=1, relheight=1)
-        answerWindow.geometry("3000x2000")
+        #answerWindow.geometry("3000x2000")
         ttk.Label(answerWindow, text='Greetings commander!', background='black', foreground='#3b73cc', font=("Courier", 12)).pack(expand=True)
         ttk.Label(answerWindow, text='Here is the information about Radiation Belt Enhancement in that period:', background='black', foreground='#3b73cc', font=("Courier", 12)).pack(expand=True)
         for item in range(len(self.rbe_ids)):
@@ -391,7 +479,7 @@ class SpaceShipCommanderApp():
         answerWindow.title("Reply on your hss request")
         frame = tk.Frame(answerWindow, bg='black')
         frame.place(relwidth=1, relheight=1)
-        answerWindow.geometry("3000x2000")
+        #answerWindow.geometry("3000x2000")
         ttk.Label(answerWindow, text='Greetings commander!', background='black', foreground='#3b73cc', font=("Courier", 12)).pack(expand=True)
         ttk.Label(answerWindow, text='Here is the information about High Speed Stream in that period:', background='black', foreground='#3b73cc', font=("Courier", 12)).pack(expand=True)
         for item in range(len(self.hss_ids)):
@@ -400,13 +488,12 @@ class SpaceShipCommanderApp():
             ttk.Label(answerWindow, text='----------------------------------', background='black', foreground='#3b73cc', font=("Courier", 12)).pack(expand=True)
         self.weather_type.set("")
 
-    # Add your start_api_processing and start_donki_api methods here as class methods
     def start_donki_api(self, start_date, end_date, type):
         loadingWindow = Toplevel(self.win)
         loadingWindow.title('Loading the request')
         loadingWindow.configure(bg=dark_mode)
 
-        loadingWindow.geometry("800x800")
+        #loadingWindow.geometry("800x800")
 
         ttk.Label(loadingWindow, text = 'Got it, working on it commander!',
                         background=dark_mode, 
@@ -436,6 +523,30 @@ class SpaceShipCommanderApp():
             threading.Thread(target=lambda:fetch_hss_data(self=self, start_date=start_date, end_date=end_date, window=loadingWindow)).start()
         else:
             print("No valid type")
+
+    
+    def start_api_processing(self, start_date, end_date, button):
+        loadingWindow = Toplevel(self.win)
+        loadingWindow.title('Loading the request')
+        loadingWindow.configure(bg=dark_mode)
+
+        #loadingWindow.geometry("800x800")
+
+        ttk.Label(loadingWindow, text = 'Got it, working on it commander!',
+                        background=dark_mode, 
+                        foreground='#3b73cc', 
+                        font =("Courier", 15)).pack(expand=True)
+        ttk.Label(loadingWindow, text = 'This might take a moment.',
+                        background=dark_mode, 
+                        foreground='#3b73cc', 
+                        font =("Courier", 15)).pack(expand=True)
+        self.progress = ttk.Progressbar(loadingWindow, mode='indeterminate')
+        self.progress.pack(expand=True)
+        self.progress.start()
+
+        threading.Thread(target=lambda:fetch_search_data(start_date=start_date, end_date=end_date, self=self, window=loadingWindow, button = button)).start()
+
+
 
 
 if __name__ == "__main__":

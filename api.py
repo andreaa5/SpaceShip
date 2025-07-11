@@ -212,6 +212,7 @@ def fetch_hss_data(self, start_date, end_date, window):
     else:
         print("Couldn't receive the data.")
     window.destroy()
+    
 
 def fetch_weather_data(self, start_date, end_date, type):
     print(type)
@@ -228,23 +229,4 @@ def fetch_weather_data(self, start_date, end_date, type):
         with open('space_weather_data.json', 'w') as json_file:
             json.dump(data, json_file, indent=2)
 
-def start_api_processing(self, start_date, end_date, button):
-    loadingWindow = Toplevel(self.win)
-    loadingWindow.title('Loading the request')
-    loadingWindow.configure(bg=dark_mode)
-
-    loadingWindow.geometry("800x800")
-
-    ttk.Label(loadingWindow, text = 'Got it, working on it commander!',
-                    background=dark_mode, 
-                    foreground='#3b73cc', 
-                    font =("Courier", 15)).pack(expand=True)
-    ttk.Label(loadingWindow, text = 'This might take a moment.',
-                    background=dark_mode, 
-                    foreground='#3b73cc', 
-                    font =("Courier", 15)).pack(expand=True)
-    self.progress = ttk.Progressbar(loadingWindow, mode='indeterminate')
-    self.progress.pack(expand=True)
-    self.progress.start()
-
-    threading.Thread(target=lambda:fetch_search_data(start_date=start_date, end_date=end_date, self=self, window=loadingWindow, button = button)).start()
+print("Requests version:", requests.__version__)
