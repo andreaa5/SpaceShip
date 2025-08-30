@@ -87,6 +87,11 @@ python3 starship_interface.py
 
 Don't forget to get your api key and include it in .env as NASA_API_KEY = '*your_api_key' (replace your_api_key with your actual api key string)
 
+## Screenshot
+![App Screenshot](./images/SpaceShipStart.png)
+![App Screenshot](./images/SpaceShipAsteroids.png)
+![App Screenshot](./images/SpaceShipWeather.png)
+
 ## TODO
 
 - [ ] Enable scrolling in reply windows on longer replies
